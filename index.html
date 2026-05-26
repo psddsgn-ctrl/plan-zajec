@@ -1,12 +1,11 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan zajęć</title>
+    <title>Plan zajęć – 12M2</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' rx='18' fill='%231a1f26'/%3E%3Cpath d='M10,20 V80 H90 V20 H70 V30 H60 V20 H40 V30 H30 V20 H10' fill='none' stroke='%23A12A7C' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='50' r='22' fill='none' stroke='%23A12A7C' stroke-width='5'/%3E%3Cpath d='M50,23 L50,28 M68,30 L65,33 M77,50 L72,50 M68,70 L65,67 M50,77 L50,72 M32,70 L35,67 M23,50 L28,50 M32,30 L35,33' fill='none' stroke='%23A12A7C' stroke-width='5'/%3E%3Cpath d='M42,57 L42,43 L50,51 L58,43 L58,57' fill='none' stroke='%23A12A7C' stroke-width='4.5' stroke-linecap='round'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="12M2">
@@ -22,258 +21,316 @@
             --card-bg: #2c333a;
             --text: #e0e0e0;
             --primary: #4cc9f0;
-            --accent: #3f37c9;
             --secondary: #8d99ae;
             --n-color: #f72585;
             --p-color: #4cc9f0;
             --shadow: 0 8px 30px rgba(0,0,0,0.3);
-            --header-bg: #1a1f26;
-            --active-glow: rgba(76, 201, 240, 0.25);
         }
-
+        * { box-sizing: border-box; }
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
             margin: 0;
-            transition: all 0.3s ease;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
+            overflow-x: hidden;
         }
 
+        /* ── HEADER ── */
         header {
-            background: var(--header-bg);
-            color: white;
-            padding: 30px 15px;
+            background: var(--bg);
+            padding: 26px 15px 20px;
             text-align: center;
             border-radius: 0 0 20px 20px;
             box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-        }
-
-        .app-logo {
-            width: 100px;
-            height: 100px;
-        }
-
-        /* Week info strip below header */
-        .week-info {
-            text-align: center;
-            font-size: 0.78em;
-            color: var(--secondary);
-            padding: 6px 15px 0;
-            letter-spacing: 0.03em;
-        }
-
-        .week-info span {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 15px;
             gap: 10px;
         }
+        .app-logo { width: 84px; height: 84px; }
 
-        button {
-            border: none;
-            padding: 10px 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 600;
-            transition: transform 0.2s;
+        /* ── CONTROLS ── */
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 14px 15px 4px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-
-        button:active { transform: scale(0.95); }
-
         .week-toggle {
             display: flex;
             background: var(--card-bg);
-            padding: 5px;
-            border-radius: 15px;
+            padding: 4px;
+            border-radius: 14px;
             box-shadow: var(--shadow);
         }
-
         .week-opt {
-            padding: 8px 20px;
+            padding: 7px 18px;
             border-radius: 10px;
             cursor: pointer;
             user-select: none;
+            font-size: 0.88em;
+            font-weight: 600;
             transition: background 0.2s, color 0.2s;
         }
+        .week-opt.active { background: var(--primary); color: #1a1f26; }
 
-        .week-opt.active {
-            background: var(--primary);
-            color: white;
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--card-bg);
+            color: var(--text);
+            border: none;
+            padding: 9px 14px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.84em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.15s;
+            white-space: nowrap;
         }
+        .icon-btn:active { transform: scale(0.95); }
 
+        /* ── TABS ── */
         .tabs {
             display: flex;
             justify-content: center;
-            overflow-x: auto;
-            padding: 10px;
+            padding: 10px 10px 6px;
             gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
-
+        .tabs::-webkit-scrollbar { display: none; }
         .tab {
-            padding: 10px 18px;
+            padding: 9px 16px;
             background: var(--card-bg);
             border-radius: 12px;
             white-space: nowrap;
             box-shadow: var(--shadow);
-            font-size: 0.9em;
+            font-size: 0.88em;
+            font-weight: 600;
             cursor: pointer;
             user-select: none;
             transition: background 0.2s, color 0.2s;
-        }
-
-        .tab.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* TODAY tab gets subtle indicator */
-        .tab.today-tab {
             position: relative;
         }
+        .tab.active { background: var(--primary); color: #1a1f26; }
         .tab.today-tab::after {
             content: '';
             position: absolute;
-            bottom: 4px;
-            left: 50%;
+            bottom: 5px; left: 50%;
             transform: translateX(-50%);
-            width: 5px;
-            height: 5px;
+            width: 5px; height: 5px;
             border-radius: 50%;
             background: var(--primary);
         }
-        .tab.today-tab.active::after {
-            background: white;
-        }
+        .tab.today-tab.active::after { background: #1a1f26; }
 
-        .schedule-container { padding: 15px; max-width: 500px; margin: 0 auto; }
-
-        .lesson-card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            box-shadow: var(--shadow);
-            border-left: 6px solid var(--primary);
-            animation: fadeIn 0.4s ease forwards;
-            transition: box-shadow 0.3s, background 0.3s;
+        /* ── TIMELINE ── */
+        .tl-wrapper { max-width: 480px; margin: 14px auto 0; padding: 0 14px; }
+        .tl-grid { display: flex; position: relative; }
+        .tl-labels { width: 44px; flex-shrink: 0; position: relative; }
+        .tl-events {
+            flex: 1;
             position: relative;
-            overflow: hidden;
+            border-left: 2px solid rgba(141,153,174,0.25);
+            margin-left: 6px;
+        }
+        .tl-hour-label {
+            position: absolute; right: 8px;
+            font-size: 0.65em; color: var(--secondary); opacity: 0.7;
+            transform: translateY(-50%); white-space: nowrap;
+        }
+        .tl-hour-line {
+            position: absolute; top: 0; left: -8px; right: 0;
+            height: 1px; background: rgba(141,153,174,0.15);
+        }
+        .tl-half-line {
+            position: absolute; left: 0; right: 0;
+            height: 1px; background: rgba(141,153,174,0.07);
+        }
+        .tl-block {
+            position: absolute; left: 8px; right: 6px;
+            border-radius: 10px; padding: 7px 10px;
+            display: flex; flex-direction: column; justify-content: center;
+            overflow: hidden; cursor: default;
+            transition: opacity 0.3s;
+        }
+        .tl-block .b-name { font-size:.78em; font-weight:600; line-height:1.25; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .tl-block .b-room { font-size:.65em; opacity:.75; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .tl-block .b-time { font-size:.6em; opacity:.6; margin-top:1px; }
+        .tl-block.is-past { opacity: 0.35; }
+        .tl-block.is-now { box-shadow: 0 0 0 2px rgba(255,255,255,0.3), 0 4px 16px rgba(0,0,0,0.4); }
+        .now-badge {
+            position: absolute; top:6px; right:8px;
+            font-size:.56em; font-weight:600; letter-spacing:.07em;
+            color: rgba(255,255,255,0.9);
+            display:flex; align-items:center; gap:3px;
+        }
+        .now-dot { width:5px; height:5px; border-radius:50%; background:white; animation:blink 1.5s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+        .tl-progress {
+            position:absolute; bottom:0; left:0;
+            height:3px; border-radius:0 0 0 10px; background:rgba(255,255,255,0.5);
+        }
+        .tl-needle {
+            position:absolute; left:-10px; right:0;
+            height:2px; background:#ff4455; border-radius:1px;
+            transform:translateY(-50%); z-index:20; pointer-events:none;
+        }
+        .tl-needle::before {
+            content:''; position:absolute; left:-2px; top:-4px;
+            width:10px; height:10px; border-radius:50%; background:#ff4455;
+        }
+        .tl-empty { text-align:center; padding:50px 20px; opacity:.45; font-size:.95em; }
+
+        /* ── SHARED PANEL STYLES ── */
+        .panel-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+        }
+        .panel-overlay.open { display: block; }
+        .panel {
+            position: fixed; top: 0; right: 0; bottom: 0;
+            width: min(360px, 94vw);
+            background: #1e242c;
+            overflow-y: auto;
+            padding: 20px 18px 40px;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+            box-shadow: -8px 0 40px rgba(0,0,0,0.5);
+            z-index: 101;
+        }
+        .panel-overlay.open .panel { transform: translateX(0); }
+        .panel-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 18px;
+        }
+        .panel-header h2 { margin:0; font-size:1.05em; font-weight:600; color:var(--primary); }
+        .panel-close {
+            background: var(--card-bg); border: none; color: var(--text);
+            width:32px; height:32px; border-radius:9px; cursor:pointer;
+            font-size:1em; display:flex; align-items:center; justify-content:center;
         }
 
-        /* Currently active lesson */
-        .lesson-card.is-now {
-            box-shadow: 0 0 0 2px var(--primary), var(--shadow);
-            background: linear-gradient(135deg, #2c333a 0%, #1e3040 100%);
+        /* ── CALENDAR PANEL ── */
+        .mini-cal { width: 100%; }
+        .mini-cal-nav {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 12px;
         }
-
-        .lesson-card.is-now::before {
-            content: '▶ TERAZ';
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 0.65em;
-            font-weight: 600;
-            color: var(--primary);
-            letter-spacing: 0.08em;
-            animation: pulse 2s infinite;
+        .mini-cal-nav span { font-size:.9em; font-weight:600; color:var(--text); }
+        .nav-btn {
+            background: var(--card-bg); border:none; color:var(--text);
+            width:30px; height:30px; border-radius:8px; cursor:pointer;
+            font-size:.9em; display:flex; align-items:center; justify-content:center;
         }
-
-        /* Past lesson - dimmed */
-        .lesson-card.is-past {
-            opacity: 0.45;
+        .cal-grid {
+            display: grid; grid-template-columns: repeat(7,1fr);
+            gap: 3px; text-align: center;
         }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .cal-dow {
+            font-size:.6em; font-weight:600; color:var(--secondary);
+            padding: 4px 0; text-transform: uppercase; letter-spacing:.06em;
         }
-
-        /* Progress bar for active lesson */
-        .progress-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 0 3px 3px 0;
-            transition: width 30s linear;
+        .cal-day {
+            font-size:.75em; padding: 5px 2px; border-radius:7px;
+            line-height:1; cursor:default; position:relative;
+            display:flex; flex-direction:column; align-items:center; gap:2px;
         }
+        .cal-day.empty { opacity:0; pointer-events:none; }
+        .cal-day.today { background: var(--primary); color:#1a1f26; font-weight:600; border-radius:50%; }
+        .cal-day.weekend { color: var(--secondary); }
+        .cal-day.holiday { color: #f72585; font-weight:600; }
+        .cal-day.break   { color: #ff9f43; font-weight:600; }
+        .cal-day.exam    { color: #a8e063; font-weight:600; }
+        .cal-dot-row { display:flex; gap:2px; justify-content:center; }
+        .cal-micro-dot { width:4px; height:4px; border-radius:50%; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .cal-legend { display:flex; flex-wrap:wrap; gap:8px 16px; margin-bottom:14px; }
+        .leg { display:flex; align-items:center; gap:5px; font-size:.72em; color:var(--secondary); }
+        .leg-d { width:8px; height:8px; border-radius:50%; }
 
-        .time-box {
-            min-width: 85px;
-            font-weight: 600;
-            color: var(--primary);
-            border-right: 1px solid var(--secondary);
-            margin-right: 15px;
-            font-size: 0.85em;
+        .events-below { margin-top: 14px; }
+        .ev-month-title {
+            font-size:.68em; font-weight:600; text-transform:uppercase;
+            letter-spacing:.08em; color:var(--secondary);
+            padding: 6px 0 4px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom:6px;
         }
-
-        .info-box { flex-grow: 1; }
-        .subject { font-weight: 600; font-size: 1.05em; margin-bottom: 4px; }
-        .room { font-size: 0.85em; opacity: 0.7; }
-
-        .empty-state {
-            text-align: center;
-            padding: 50px 20px;
-            opacity: 0.5;
+        .ev-item {
+            display:flex; align-items:flex-start; gap:10px;
+            padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.04);
+            font-size:.78em;
         }
+        .ev-item:last-child { border-bottom:none; }
+        .ev-dot { width:8px; height:8px; border-radius:50%; margin-top:3px; flex-shrink:0; }
+        .ev-date { min-width:56px; font-weight:600; color:var(--primary); font-size:.9em; }
+        .ev-name { color:var(--text); line-height:1.4; }
 
-        /* Current time indicator */
-        .current-time-display {
-            text-align: center;
-            font-size: 0.85em;
-            color: var(--secondary);
-            padding: 2px 15px 8px;
-        }
-        .current-time-display b {
-            color: var(--text);
-        }
+
     </style>
 </head>
 <body>
 
+<!-- ── CALENDAR OVERLAY ── -->
+<div class="panel-overlay" id="calOverlay" onclick="closePanelIfOutside(event,'calOverlay')">
+    <div class="panel" id="calPanel">
+        <div class="panel-header">
+            <h2>📅 Kalendarz PK 2025/26</h2>
+            <button class="panel-close" onclick="closePanel('calOverlay')">✕</button>
+        </div>
+
+        <div class="cal-legend">
+            <div class="leg"><div class="leg-d" style="background:#f72585"></div>Święto</div>
+            <div class="leg"><div class="leg-d" style="background:#ff9f43"></div>Przerwa/Wolne</div>
+            <div class="leg"><div class="leg-d" style="background:#a8e063"></div>Sesja</div>
+        </div>
+
+        <div class="mini-cal">
+            <div class="mini-cal-nav">
+                <button class="nav-btn" onclick="calPrev()">‹</button>
+                <span id="calMonthLabel"></span>
+                <button class="nav-btn" onclick="calNext()">›</button>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <div class="events-below" id="eventsBelow"></div>
+    </div>
+</div>
+
+
+
+<!-- ── HEADER ── -->
 <header>
     <svg class="app-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <clipPath id="centerM">
-                <circle cx="50" cy="50" r="12" />
-            </clipPath>
-        </defs>
-        <path d="M10,20 V80 H90 V20 H70 V30 H60 V20 H40 V30 H30 V20 H10" 
-              fill="none" stroke="#A12A7C" stroke-width="5" stroke-linejoin="round"/>
-        <circle cx="50" cy="50" r="22" fill="none" stroke="#A12A7C" stroke-width="5" />
-        <path d="M50,23 L50,28 M68,30 L65,33 M77,50 L72,50 M68,70 L65,67 M50,77 L50,72 M32,70 L35,67 M23,50 L28,50 M32,30 L35,33" 
-              fill="none" stroke="#A12A7C" stroke-width="5" />
-        <path d="M42,57 L42,43 L50,51 L58,43 L58,57" 
-              fill="none" stroke="#A12A7C" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M10,20 V80 H90 V20 H70 V30 H60 V20 H40 V30 H30 V20 H10" fill="none" stroke="#A12A7C" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="50" cy="50" r="22" fill="none" stroke="#A12A7C" stroke-width="5"/>
+        <path d="M50,23 L50,28 M68,30 L65,33 M77,50 L72,50 M68,70 L65,67 M50,77 L50,72 M32,70 L35,67 M23,50 L28,50 M32,30 L35,33" fill="none" stroke="#A12A7C" stroke-width="5"/>
+        <path d="M42,57 L42,43 L50,51 L58,43 L58,57" fill="none" stroke="#A12A7C" stroke-width="4.5" stroke-linecap="round"/>
     </svg>
-    <h1 style="margin:0; font-size: 1.8em;">12M2</h1>
+    <h1 style="margin:0;font-size:1.75em;">12M2</h1>
 </header>
-
-<div class="week-info" id="weekInfo"></div>
-<div class="current-time-display" id="timeDisplay"></div>
 
 <div class="controls">
     <div class="week-toggle">
         <div id="optN" class="week-opt" onclick="setWeek('N')">Niep. (N)</div>
         <div id="optP" class="week-opt" onclick="setWeek('P')">Parz. (P)</div>
     </div>
+
+    <button class="icon-btn" onclick="openPanel('calOverlay')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Dni wolne
+    </button>
 </div>
 
 <div class="tabs" id="tabs">
@@ -284,205 +341,303 @@
     <div class="tab" onclick="changeDay(5)">Pt</div>
 </div>
 
-<div class="schedule-container" id="schedule"></div>
+
+
+<div class="tl-wrapper">
+    <div class="tl-grid">
+        <div class="tl-labels" id="tlLabels"></div>
+        <div class="tl-events" id="tlEvents"></div>
+    </div>
+</div>
 
 <script>
-    const data = {
-        1: [ // Poniedziałek
-            { time: "09:15-10:45", name: "WprMES P03", room: "A631b", type: "P" },
-            { time: "11:00-12:30", name: "ModMCAD P03", room: "B216", type: "N" },
-            { time: "11:00-12:30", name: "ModMCAD P03", room: "B216", type: "P" },
-            { time: "12:45-14:15", name: "PodEkspl L03", room: "J116", type: "N" },
-            { time: "14:30-16:00", name: "PKMII L03", room: "B212", type: "N" }
-        ],
-        2: [ // Wtorek
-            { time: "07:30-09:00", name: "Mechanpł Ć", room: "A638", type: "N" },
-            { time: "07:30-09:00", name: "Mechanpł Ć", room: "A638", type: "P" },
-            { time: "11:00-12:30", name: "PrPTech P03", room: "C206", type: "N" },
-            { time: "12:45-14:15", name: "J. angielski", room: "A202", type: "O" },
-            { time: "14:30-16:00", name: "PKMII P03", room: "A535", type: "N" },
-            { time: "14:30-16:00", name: "PKMII P03", room: "A535", type: "P" },
-            { time: "16:15-17:45", name: "MetrSGWy L03", room: "C01", type: "N" },
-            { time: "16:15-17:45", name: "MetrSGWy L03", room: "C01", type: "P" }
-        ],
-        3: [], // Środa wolna
-        4: [ // Czwartek
-            { time: "11:00-12:30", name: "MTMechM L03", room: "B08", type: "N" },
-        ],
-        5: [ // Piątek
-            { time: "11:00-12:30", name: "MetrSGWY P03", room: "C106", type: "P" },
-            { time: "14:30-16:00", name: "MTMechM Ć", room: "A502", type: "N" },
-        ]
-    };
+// ═══════════════════════════════════════════════════════════
+// SCHEDULE DATA
+// ═══════════════════════════════════════════════════════════
+const data = {
+    1:[
+        {time:"09:15-10:45",name:"WprMES P03",  room:"A631b",type:"P"},
+        {time:"11:00-12:30",name:"ModMCAD P03", room:"B216", type:"N"},
+        {time:"11:00-12:30",name:"ModMCAD P03", room:"B216", type:"P"},
+        {time:"12:45-14:15",name:"PodEkspl L03",room:"J116", type:"N"},
+        {time:"14:30-16:00",name:"PKMII L03",   room:"B212", type:"N"}
+    ],
+    2:[
+        {time:"07:30-09:00",name:"Mechanpł Ć",  room:"A638", type:"N"},
+        {time:"07:30-09:00",name:"Mechanpł Ć",  room:"A638", type:"P"},
+        {time:"11:00-12:30",name:"PrPTech P03", room:"C206", type:"N"},
+        {time:"12:45-14:15",name:"J. angielski",room:"A202", type:"O"},
+        {time:"14:30-16:00",name:"PKMII P03",   room:"A535", type:"N"},
+        {time:"14:30-16:00",name:"PKMII P03",   room:"A535", type:"P"},
+        {time:"16:15-17:45",name:"MetrSGWy L03",room:"C01",  type:"N"},
+        {time:"16:15-17:45",name:"MetrSGWy L03",room:"C01",  type:"P"}
+    ],
+    3:[],
+    4:[{time:"11:00-12:30",name:"MTMechM L03",room:"B08",type:"N"}],
+    5:[
+        {time:"11:00-12:30",name:"MetrSGWY P03",room:"C106",type:"P"},
+        {time:"14:30-16:00",name:"MTMechM Ć",   room:"A502",type:"N"}
+    ]
+};
 
-    // ── WEEK AUTO-DETECTION ──────────────────────────────────────────────────
-    // Reference: week of 2025-05-19 is ODD (nieparzysty = N)
-    // We use ISO week number parity relative to this reference.
-    function getISOWeekNumber(date) {
-        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-        return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+// ═══════════════════════════════════════════════════════════
+// HOLIDAYS / EVENTS DATA (from PK regulation)
+// type: holiday=red, break=orange, exam=green
+// ═══════════════════════════════════════════════════════════
+const PK_EVENTS = [
+    // Semestr zimowy
+    {from:[2025,9,2],  to:[2025,9,2],  label:"Inauguracja roku",         type:"break"},
+    {from:[2025,9,31], to:[2025,10,2], label:"Wszystkich Świętych",       type:"holiday"},
+    {from:[2025,10,10],to:[2025,10,10],label:"Dzień wolny (święto w sob)",type:"break"},
+    {from:[2025,10,11],to:[2025,10,11],label:"Święto Niepodległości",     type:"holiday"},
+    {from:[2025,11,18],to:[2025,11,18],label:"Wigilia Akademicka",        type:"break"},
+    {from:[2025,11,22],to:[2026,0,6],  label:"Boże Narodzenie",           type:"holiday"},
+    // Sesja
+    {from:[2026,0,29], to:[2026,1,10], label:"Sesja egzaminacyjna",       type:"exam"},
+    {from:[2026,1,11], to:[2026,1,17], label:"Sesja poprawkowa",          type:"exam"},
+    {from:[2026,1,18], to:[2026,1,22], label:"Wakacje zimowe",            type:"break"},
+    // Semestr letni
+    {from:[2026,3,1],  to:[2026,3,7],  label:"Wielkanoc",                 type:"holiday"},
+    {from:[2026,4,1],  to:[2026,4,1],  label:"Święto Pracy",              type:"holiday"},
+    {from:[2026,4,1],  to:[2026,4,4],  label:"Rajd PK",                   type:"break"},
+    {from:[2026,4,3],  to:[2026,4,3],  label:"Konstytucja 3 Maja",        type:"holiday"},
+    {from:[2026,4,12], to:[2026,4,12], label:"Święto Szkoły",             type:"break"},
+    {from:[2026,4,24], to:[2026,4,24], label:"Zielone Świątki",           type:"holiday"},
+    {from:[2026,5,4],  to:[2026,5,5],  label:"Boże Ciało",                type:"holiday"},
+    // Sesja letnia
+    {from:[2026,5,17], to:[2026,5,30], label:"Sesja egzaminacyjna",       type:"exam"},
+    {from:[2026,6,1],  to:[2026,7,31], label:"Wakacje letnie",            type:"break"},
+    {from:[2026,8,1],  to:[2026,8,15], label:"Sesja poprawkowa",          type:"exam"},
+];
+
+// Convert PK_EVENTS to a flat map: "YYYY-M-D" -> {type, labels[]}
+const DAY_MAP = {};
+function addToMap(y,m,d,ev){
+    const k=`${y}-${m}-${d}`;
+    if(!DAY_MAP[k]) DAY_MAP[k]={type:ev.type,labels:[]};
+    // type priority: holiday > break > exam
+    const pri={holiday:3,break:2,exam:1};
+    if((pri[ev.type]||0) > (pri[DAY_MAP[k].type]||0)) DAY_MAP[k].type=ev.type;
+    if(!DAY_MAP[k].labels.includes(ev.label)) DAY_MAP[k].labels.push(ev.label);
+}
+PK_EVENTS.forEach(ev=>{
+    const s=new Date(ev.from[0],ev.from[1],ev.from[2]);
+    const e=new Date(ev.to[0],  ev.to[1],  ev.to[2]);
+    for(let d=new Date(s);d<=e;d.setDate(d.getDate()+1)){
+        addToMap(d.getFullYear(),d.getMonth(),d.getDate(),ev);
+    }
+});
+
+// ═══════════════════════════════════════════════════════════
+// MINI CALENDAR
+// ═══════════════════════════════════════════════════════════
+const TODAY = new Date();
+let calYear  = TODAY.getFullYear();
+let calMonth = TODAY.getMonth();
+const MONTHS_PL = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
+                   'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+const DAYS_PL = ['Pn','Wt','Śr','Cz','Pt','So','Nd'];
+
+function buildCal(){
+    document.getElementById('calMonthLabel').textContent = `${MONTHS_PL[calMonth]} ${calYear}`;
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    // Day-of-week headers
+    DAYS_PL.forEach(d=>{
+        const h=document.createElement('div');
+        h.className='cal-dow'; h.textContent=d;
+        grid.appendChild(h);
+    });
+
+    const first = new Date(calYear,calMonth,1);
+    // JS: 0=Sun, we want 0=Mon
+    let startDow = (first.getDay()+6)%7;
+    const daysInMonth = new Date(calYear,calMonth+1,0).getDate();
+
+    // Empty cells
+    for(let i=0;i<startDow;i++){
+        const e=document.createElement('div'); e.className='cal-day empty'; grid.appendChild(e);
     }
 
-    function detectWeek() {
-        const today = new Date();
-        const weekNum = getISOWeekNumber(today);
-        // Odd ISO week number → N (nieparzysty), Even → P (parzysty)
-        // Calibrated: week 21 of 2025 (May 19) is N → week 21 is odd ✓
-        return (weekNum % 2 === 1) ? 'N' : 'P';
-    }
+    for(let d=1;d<=daysInMonth;d++){
+        const cell=document.createElement('div');
+        cell.className='cal-day';
+        const dow=(startDow+d-1)%7;
+        if(dow>=5) cell.classList.add('weekend');
 
-    // ── TIME HELPERS ─────────────────────────────────────────────────────────
-    function timeToMinutes(timeStr) {
-        const [h, m] = timeStr.split(':').map(Number);
-        return h * 60 + m;
-    }
-
-    function parseLesson(lesson) {
-        const [startStr, endStr] = lesson.time.split('-');
-        return {
-            startMin: timeToMinutes(startStr),
-            endMin: timeToMinutes(endStr)
-        };
-    }
-
-    function getNowMinutes() {
-        const now = new Date();
-        return now.getHours() * 60 + now.getMinutes();
-    }
-
-    function getLessonStatus(lesson) {
-        const { startMin, endMin } = parseLesson(lesson);
-        const nowMin = getNowMinutes();
-        if (nowMin >= startMin && nowMin < endMin) return 'now';
-        if (nowMin >= endMin) return 'past';
-        return 'future';
-    }
-
-    function getProgressPercent(lesson) {
-        const { startMin, endMin } = parseLesson(lesson);
-        const nowMin = getNowMinutes();
-        const total = endMin - startMin;
-        const elapsed = nowMin - startMin;
-        return Math.min(100, Math.max(0, (elapsed / total) * 100));
-    }
-
-    // ── STATE ────────────────────────────────────────────────────────────────
-    let currentWeek = detectWeek();
-
-    const todayJS = new Date().getDay(); // 0=Sun, 1=Mon ... 6=Sat
-    // Map JS day to our 1-5 system (Mon=1 ... Fri=5); weekend → Monday
-    let todayAppDay = (todayJS >= 1 && todayJS <= 5) ? todayJS : 1;
-    let currentDay = todayAppDay;
-
-    // ── UI HELPERS ───────────────────────────────────────────────────────────
-    function updateWeekInfo() {
-        const weekNum = getISOWeekNumber(new Date());
-        const label = currentWeek === 'N' ? 'Nieparzysty (N)' : 'Parzysty (P)';
-        document.getElementById('weekInfo').innerHTML =
-            `Tydzień ${weekNum} — <span>${label}</span>`;
-    }
-
-    function updateTimeDisplay() {
-        const now = new Date();
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('timeDisplay').innerHTML =
-            `Aktualny czas: <b>${hh}:${mm}</b>`;
-    }
-
-    function setWeek(w) {
-        currentWeek = w;
-        document.getElementById('optN').classList.toggle('active', w === 'N');
-        document.getElementById('optP').classList.toggle('active', w === 'P');
-        updateWeekInfo();
-        render();
-    }
-
-    function changeDay(d) {
-        currentDay = d;
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach((t, i) => t.classList.toggle('active', i + 1 === d));
-        render();
-    }
-
-    // ── RENDER ───────────────────────────────────────────────────────────────
-    function render() {
-        const container = document.getElementById('schedule');
-        container.innerHTML = '';
-
-        const lessons = data[currentDay] || [];
-        const filtered = lessons.filter(l => l.type === 'O' || l.type === currentWeek);
-
-        if (filtered.length === 0) {
-            container.innerHTML = '<div class="empty-state">🎉 Brak zajęć w tym dniu!</div>';
-            return;
+        const k=`${calYear}-${calMonth}-${d}`;
+        const ev=DAY_MAP[k];
+        if(ev){
+            cell.classList.add(ev.type==='holiday'?'holiday': ev.type==='exam'?'exam':'break');
+            const dot=document.createElement('div');
+            dot.className='cal-micro-dot';
+            dot.style.background = ev.type==='holiday'?'#f72585': ev.type==='exam'?'#a8e063':'#ff9f43';
+            const dr=document.createElement('div'); dr.className='cal-dot-row'; dr.appendChild(dot);
+            // number first
+            const numSpan=document.createElement('span'); numSpan.textContent=d;
+            cell.appendChild(numSpan); cell.appendChild(dr);
+        } else {
+            cell.textContent=d;
         }
 
-        const isToday = (currentDay === todayAppDay);
+        // Today highlight
+        if(d===TODAY.getDate() && calMonth===TODAY.getMonth() && calYear===TODAY.getFullYear()){
+            cell.classList.add('today'); cell.innerHTML=d;
+        }
 
-        filtered.forEach(l => {
-            const card = document.createElement('div');
-            card.className = 'lesson-card';
+        grid.appendChild(cell);
+    }
 
-            const borderColor = l.type === 'N' ? 'var(--n-color)'
-                             : l.type === 'P' ? 'var(--p-color)'
-                             : 'var(--primary)';
-            card.style.borderLeftColor = borderColor;
+    // Events list below calendar for this month
+    buildEventsBelow();
+}
 
-            let statusClass = '';
-            let progressHTML = '';
-
-            if (isToday) {
-                const status = getLessonStatus(l);
-                if (status === 'now') {
-                    statusClass = 'is-now';
-                    const pct = getProgressPercent(l);
-                    progressHTML = `<div class="progress-bar" style="width:${pct}%"></div>`;
-                } else if (status === 'past') {
-                    statusClass = 'is-past';
-                }
+function buildEventsBelow(){
+    const el=document.getElementById('eventsBelow');
+    el.innerHTML='';
+    const monthEvents=[];
+    for(let d=1;d<=31;d++){
+        const k=`${calYear}-${calMonth}-${d}`;
+        if(DAY_MAP[k]){
+            // find first day of this streak
+            const prev=`${calYear}-${calMonth}-${d-1}`;
+            if(!DAY_MAP[prev] || DAY_MAP[prev].labels[0]!==DAY_MAP[k].labels[0]){
+                monthEvents.push({day:d, ...DAY_MAP[k]});
             }
+        }
+    }
+    if(!monthEvents.length) return;
 
-            card.classList.add(...(statusClass ? [statusClass] : []));
+    const title=document.createElement('div');
+    title.className='ev-month-title'; title.textContent=`${MONTHS_PL[calMonth]} ${calYear}`;
+    el.appendChild(title);
 
-            card.innerHTML = `
-                <div class="time-box">${l.time}</div>
-                <div class="info-box">
-                    <div class="subject">${l.name}</div>
-                    <div class="room">📍 Sala: ${l.room}</div>
-                </div>
-                ${progressHTML}
-            `;
-            container.appendChild(card);
-        });
+    monthEvents.forEach(ev=>{
+        const item=document.createElement('div'); item.className='ev-item';
+        const dot=document.createElement('div'); dot.className='ev-dot';
+        dot.style.background=ev.type==='holiday'?'#f72585':ev.type==='exam'?'#a8e063':'#ff9f43';
+        const date=document.createElement('div'); date.className='ev-date';
+        date.textContent=`${ev.day} ${MONTHS_PL[calMonth].slice(0,3)}`;
+        const name=document.createElement('div'); name.className='ev-name';
+        name.textContent=ev.labels[0];
+        item.appendChild(dot); item.appendChild(date); item.appendChild(name);
+        el.appendChild(item);
+    });
+}
+
+function calPrev(){ calMonth--; if(calMonth<0){calMonth=11;calYear--;} buildCal(); }
+function calNext(){ calMonth++; if(calMonth>11){calMonth=0;calYear++;} buildCal(); }
+
+
+
+// ═══════════════════════════════════════════════════════════
+// PANEL OPEN/CLOSE
+// ═══════════════════════════════════════════════════════════
+function openPanel(id){
+    document.getElementById(id).classList.add('open');
+    if(id==='calOverlay') buildCal();
+}
+function closePanel(id){ document.getElementById(id).classList.remove('open'); }
+function closePanelIfOutside(e,id){ if(e.target===document.getElementById(id)) closePanel(id); }
+
+// ═══════════════════════════════════════════════════════════
+// TIMELINE
+// ═══════════════════════════════════════════════════════════
+const FULL_START=7*60, FULL_END=20*60, PX_PER_MIN=1.55;
+const BG ={N:'#f72585',P:'#4cc9f0',O:'#4cc9f0'};
+const BG2={N:'rgba(247,37,133,.18)',P:'rgba(76,201,240,.18)',O:'rgba(76,201,240,.18)'};
+
+function detectWeek(){
+    const REF=new Date(2025,9,1);
+    const diff=Math.floor((new Date()-REF)/86400000);
+    if(diff<0) return 'N';
+    return (Math.floor(diff/7)%2===0)?'N':'P';
+}
+function toMin(s){ const[h,m]=s.split(':').map(Number); return h*60+m; }
+function parseRange(t){ const[a,b]=t.split('-'); return{start:toMin(a),end:toMin(b)}; }
+function getNowMin(){ const n=new Date(); return n.getHours()*60+n.getMinutes(); }
+
+const autoWeek=detectWeek();
+let currentWeek=autoWeek;
+const todayJS=new Date().getDay();
+let todayAppDay=(todayJS>=1&&todayJS<=5)?todayJS:1;
+let currentDay=todayAppDay;
+function isLiveView(){ return currentDay===todayAppDay&&currentWeek===autoWeek; }
+
+function render(){
+    const labelsEl=document.getElementById('tlLabels');
+    const eventsEl=document.getElementById('tlEvents');
+    labelsEl.innerHTML=''; eventsEl.innerHTML='';
+    const lessons=data[currentDay]||[];
+    const filtered=lessons.filter(l=>l.type==='O'||l.type===currentWeek);
+    if(!filtered.length){
+        eventsEl.innerHTML='<div class="tl-empty">🎉 Brak zajęć w tym dniu!</div>';
+        labelsEl.style.height=eventsEl.style.height='80px'; return;
+    }
+    const times=filtered.map(l=>parseRange(l.time));
+    const dayStart=Math.max(FULL_START,Math.min(...times.map(t=>t.start))-30);
+    const dayEnd=Math.min(FULL_END,Math.max(...times.map(t=>t.end))+30);
+    const totalPx=(dayEnd-dayStart)*PX_PER_MIN;
+    labelsEl.style.height=eventsEl.style.height=totalPx+'px';
+    function px(m){ return(m-dayStart)*PX_PER_MIN; }
+
+    for(let h=Math.ceil(dayStart/60);h<=Math.floor(dayEnd/60);h++){
+        const lbl=document.createElement('div');
+        lbl.className='tl-hour-label'; lbl.style.top=px(h*60)+'px';
+        lbl.textContent=String(h).padStart(2,'0')+':00'; labelsEl.appendChild(lbl);
+        const rule=document.createElement('div');
+        rule.className='tl-hour-line'; rule.style.top=px(h*60)+'px'; eventsEl.appendChild(rule);
+        const hm=h*60+30;
+        if(hm<dayEnd){ const half=document.createElement('div'); half.className='tl-half-line'; half.style.top=px(hm)+'px'; eventsEl.appendChild(half); }
     }
 
-    // ── MARK TODAY TAB ───────────────────────────────────────────────────────
-    function markTodayTab() {
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach((t, i) => {
-            if (i + 1 === todayAppDay) t.classList.add('today-tab');
-        });
+    const live=isLiveView(), nowMin=getNowMin();
+    filtered.forEach(l=>{
+        const{start,end}=parseRange(l.time);
+        const topPx=px(start), heightPx=Math.max((end-start)*PX_PER_MIN,30);
+        const block=document.createElement('div'); block.className='tl-block';
+        block.style.top=topPx+'px'; block.style.height=heightPx+'px';
+        block.style.background=BG2[l.type]||BG2.O;
+        block.style.borderLeft=`3px solid ${BG[l.type]||BG.O}`;
+        if(live){
+            if(nowMin>=start&&nowMin<end){
+                block.classList.add('is-now');
+                block.style.background=(BG[l.type]||BG.O)+'33';
+                const pct=Math.round(((nowMin-start)/(end-start))*100);
+                block.innerHTML+=`<div class="now-badge"><div class="now-dot"></div>TERAZ</div><div class="tl-progress" style="width:${pct}%"></div>`;
+            } else if(nowMin>=end){ block.classList.add('is-past'); }
+        }
+        const nc=BG[l.type]||BG.O;
+        block.innerHTML+=`<div class="b-name" style="color:${nc}">${l.name}</div>${heightPx>=42?`<div class="b-room">📍 ${l.room}</div>`:''}${heightPx>=56?`<div class="b-time">${l.time}</div>`:''}`;
+        eventsEl.appendChild(block);
+    });
+
+    if(live&&nowMin>=dayStart&&nowMin<=dayEnd){
+        const needle=document.createElement('div'); needle.className='tl-needle';
+        needle.style.top=px(nowMin)+'px'; eventsEl.appendChild(needle);
     }
+}
 
-    // ── LIVE REFRESH ─────────────────────────────────────────────────────────
-    // Re-render every 60 seconds so "is-now" stays accurate
-    function tick() {
-        updateTimeDisplay();
-        render(); // re-render to refresh progress & status
-    }
+function setWeek(w){
+    currentWeek=w;
+    document.getElementById('optN').classList.toggle('active',w==='N');
+    document.getElementById('optP').classList.toggle('active',w==='P');
+    render();
+}
+function changeDay(d){
+    currentDay=d;
+    document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i+1===d));
+    render();
+}
 
-    // ── INIT ─────────────────────────────────────────────────────────────────
-    markTodayTab();
-    setWeek(currentWeek);      // sets toggle + weekInfo + renders
-    changeDay(currentDay);     // selects today's tab + renders
-
-    updateTimeDisplay();
-    setInterval(tick, 60000);  // update every minute
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+document.querySelectorAll('.tab').forEach((t,i)=>{ if(i+1===todayAppDay) t.classList.add('today-tab'); });
+setWeek(currentWeek);
+changeDay(currentDay);
+setInterval(render,60000);
 </script>
-
 </body>
 </html>
-
