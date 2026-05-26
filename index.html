@@ -302,6 +302,164 @@
         .ev-date { min-width:56px; font-weight:600; color:var(--primary); font-size:.9em; }
         .ev-name { color:var(--text); line-height:1.4; }
 
+        /* ── KOLOKWIA PANEL ── */
+        .kol-type-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: .62em; font-weight: 700; padding: 3px 9px;
+            border-radius: 20px; text-transform: uppercase; letter-spacing: .06em;
+        }
+        .kol-type-kol  { background: rgba(168,224,99,.18); color: #a8e063; border: 1px solid rgba(168,224,99,.35); }
+        .kol-type-wej  { background: rgba(255,159,67,.18);  color: #ff9f43; border: 1px solid rgba(255,159,67,.35); }
+        .kol-type-egz  { background: rgba(247,37,133,.18);  color: #f72585; border: 1px solid rgba(247,37,133,.35); }
+
+        .kol-add-btn {
+            display: flex; align-items: center; justify-content: center; gap: 7px;
+            width: 100%; padding: 11px; border-radius: 12px; cursor: pointer;
+            background: rgba(76,201,240,.12); border: 1.5px dashed rgba(76,201,240,.4);
+            color: var(--primary); font-family: inherit; font-size: .88em; font-weight: 600;
+            transition: background .2s;
+            margin-bottom: 14px;
+        }
+        .kol-add-btn:hover { background: rgba(76,201,240,.2); }
+
+        .kol-card {
+            background: var(--card-bg); border-radius: 14px; padding: 12px 14px;
+            margin-bottom: 10px; cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: transform .15s, box-shadow .15s;
+            position: relative;
+        }
+        .kol-card:active { transform: scale(.98); }
+        .kol-card.type-kol { border-left-color: #a8e063; }
+        .kol-card.type-wej { border-left-color: #ff9f43; }
+        .kol-card.type-egz { border-left-color: #f72585; }
+        .kol-card.is-past  { opacity: .45; }
+        .kol-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+        .kol-card-subject { font-size: .9em; font-weight: 600; color: var(--text); line-height: 1.3; }
+        .kol-card-date { font-size: .72em; color: var(--primary); font-weight: 600; white-space: nowrap; }
+        .kol-card-time { font-size: .68em; color: var(--secondary); margin-top: 2px; }
+        .kol-card-delete {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(247,37,133,.15); border: none; color: #f72585;
+            width: 26px; height: 26px; border-radius: 7px; cursor: pointer;
+            font-size: .8em; display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity .2s;
+        }
+        .kol-card:hover .kol-card-delete { opacity: 1; }
+
+        /* Weekly calendar */
+        .week-cal {
+            margin-bottom: 16px;
+            background: rgba(255,255,255,.03);
+            border-radius: 14px; overflow: hidden;
+        }
+        .week-cal-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 12px 8px;
+        }
+        .week-cal-title { font-size: .78em; font-weight: 600; color: var(--secondary); }
+        .week-cal-nav { display: flex; gap: 4px; }
+        .week-cal-nav button {
+            background: var(--card-bg); border: none; color: var(--text);
+            width: 26px; height: 26px; border-radius: 7px; cursor: pointer; font-size: .85em;
+        }
+        .week-cal-days {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+        .wc-day {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 6px 2px 8px; cursor: pointer;
+            border-radius: 0; transition: background .15s;
+            position: relative; min-height: 52px;
+        }
+        .wc-day:hover { background: rgba(255,255,255,.04); }
+        .wc-day-label { font-size: .58em; font-weight: 600; color: var(--secondary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+        .wc-day-num { font-size: .78em; font-weight: 600; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .wc-day.today .wc-day-num { background: var(--primary); color: #1a1f26; }
+        .wc-day.weekend .wc-day-label { color: rgba(141,153,174,.5); }
+        .wc-dots { display: flex; gap: 2px; justify-content: center; margin-top: 3px; flex-wrap: wrap; max-width: 28px; }
+        .wc-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+        /* Add form modal */
+        .kol-modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,.6); backdrop-filter: blur(6px);
+            z-index: 200; align-items: flex-end; justify-content: center;
+        }
+        .kol-modal-overlay.open { display: flex; }
+        .kol-modal {
+            background: #1e242c; border-radius: 24px 24px 0 0;
+            width: 100%; max-width: 480px; padding: 20px 18px 36px;
+            animation: slideUp .32s cubic-bezier(0.32,0.72,0,1);
+        }
+        @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+        .kol-modal-handle { width: 36px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.15); margin: 0 auto 18px; }
+        .kol-modal-title { font-size: 1em; font-weight: 600; margin-bottom: 16px; color: var(--primary); }
+        .kol-form-row { margin-bottom: 12px; }
+        .kol-form-label { font-size: .72em; font-weight: 600; color: var(--secondary); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; display: block; }
+        .kol-form-input, .kol-form-select, .kol-form-textarea {
+            width: 100%; background: var(--card-bg); border: 1.5px solid rgba(255,255,255,.08);
+            color: var(--text); padding: 10px 12px; border-radius: 10px;
+            font-family: inherit; font-size: .9em;
+            transition: border-color .2s;
+        }
+        .kol-form-input:focus, .kol-form-select:focus, .kol-form-textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        .kol-form-select option { background: #2c333a; }
+        .kol-form-textarea { resize: none; height: 68px; }
+        .kol-form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        .kol-type-selector { display: flex; gap: 8px; }
+        .kol-type-opt {
+            flex: 1; padding: 9px 4px; border-radius: 10px; text-align: center;
+            font-size: .78em; font-weight: 700; cursor: pointer;
+            border: 1.5px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04);
+            color: var(--secondary); transition: all .2s;
+        }
+        .kol-type-opt.sel-kol { background: rgba(168,224,99,.18); border-color: #a8e063; color: #a8e063; }
+        .kol-type-opt.sel-wej { background: rgba(255,159,67,.18);  border-color: #ff9f43; color: #ff9f43; }
+        .kol-type-opt.sel-egz { background: rgba(247,37,133,.18);  border-color: #f72585; color: #f72585; }
+        .kol-submit-btn {
+            width: 100%; padding: 13px; border-radius: 12px; border: none;
+            background: var(--primary); color: #1a1f26; font-family: inherit;
+            font-size: .95em; font-weight: 700; cursor: pointer; margin-top: 4px;
+            transition: opacity .2s;
+        }
+        .kol-submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+        /* Detail modal */
+        .kol-detail-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,.6); backdrop-filter: blur(6px);
+            z-index: 200; align-items: flex-end; justify-content: center;
+        }
+        .kol-detail-overlay.open { display: flex; }
+        .kol-detail-modal {
+            background: #1e242c; border-radius: 24px 24px 0 0;
+            width: 100%; max-width: 480px; padding: 20px 18px 40px;
+            animation: slideUp .32s cubic-bezier(0.32,0.72,0,1);
+        }
+        .kol-detail-subject { font-size: 1.2em; font-weight: 700; margin: 10px 0 6px; }
+        .kol-detail-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: .88em; color: var(--secondary); }
+        .kol-detail-row:last-child { border-bottom: none; }
+        .kol-detail-row strong { color: var(--text); }
+        .kol-detail-notes { margin-top: 10px; background: rgba(255,255,255,.04); border-radius: 10px; padding: 10px 12px; font-size: .84em; color: var(--text); line-height: 1.5; }
+
+        /* Firebase status */
+        .fb-status {
+            font-size: .65em; color: var(--secondary); text-align: center;
+            padding: 4px 0 8px; opacity: .6;
+        }
+        .fb-status.error { color: #f72585; opacity: 1; }
+
+        .kol-empty { text-align: center; padding: 30px 20px; opacity: .4; font-size: .88em; }
+
+        .kol-section-title {
+            font-size: .68em; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .08em; color: var(--secondary);
+            padding: 8px 0 4px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 8px;
+        }
 
     </style>
 </head>
@@ -357,6 +515,11 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Dni wolne
     </button>
+    <button class="icon-btn" onclick="openPanel('kolOverlay')" style="position:relative">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Kolokwia
+        <span id="kolBadge" style="display:none;position:absolute;top:-4px;right:-4px;background:#f72585;color:white;border-radius:50%;width:16px;height:16px;font-size:.6em;font-weight:700;align-items:center;justify-content:center;"></span>
+    </button>
 </div>
 
 <div class="tabs" id="tabs">
@@ -373,6 +536,94 @@
     <div class="tl-grid">
         <div class="tl-labels" id="tlLabels"></div>
         <div class="tl-events" id="tlEvents"></div>
+    </div>
+</div>
+
+<!-- ── KOLOKWIA OVERLAY ── -->
+<div class="panel-overlay" id="kolOverlay" onclick="closePanelIfOutside(event,'kolOverlay')">
+    <div class="panel" id="kolPanel">
+        <div class="panel-header">
+            <h2>📝 Kolokwia & Egzaminy</h2>
+            <button class="panel-close" onclick="closePanel('kolOverlay')">✕</button>
+        </div>
+        <div id="fbStatus" class="fb-status">⏳ Łączenie z bazą danych…</div>
+
+        <button class="kol-add-btn" onclick="openKolModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Dodaj kolokwium / wejściówkę / egzamin
+        </button>
+
+        <!-- Weekly calendar -->
+        <div class="week-cal">
+            <div class="week-cal-header">
+                <span class="week-cal-title" id="wcTitle"></span>
+                <div class="week-cal-nav">
+                    <button onclick="wcPrev()">‹</button>
+                    <button onclick="wcNext()">›</button>
+                </div>
+            </div>
+            <div class="week-cal-days" id="wcDays"></div>
+        </div>
+
+        <!-- Events list -->
+        <div id="kolList"></div>
+    </div>
+</div>
+
+<!-- ── ADD FORM MODAL ── -->
+<div class="kol-modal-overlay" id="kolModalOverlay" onclick="if(event.target===this)closeKolModal()">
+    <div class="kol-modal">
+        <div class="kol-modal-handle"></div>
+        <div class="kol-modal-title">➕ Nowy wpis</div>
+
+        <div class="kol-form-row">
+            <label class="kol-form-label">Typ</label>
+            <div class="kol-type-selector">
+                <div class="kol-type-opt sel-kol" id="typeKol" onclick="selectKolType('kol')">📚 Kolokwium</div>
+                <div class="kol-type-opt" id="typeWej" onclick="selectKolType('wej')">⚡ Wejściówka</div>
+                <div class="kol-type-opt" id="typeEgz" onclick="selectKolType('egz')">🎓 Egzamin</div>
+            </div>
+        </div>
+
+        <div class="kol-form-row">
+            <label class="kol-form-label">Przedmiot</label>
+            <input class="kol-form-input" id="kolSubject" type="text" placeholder="np. Mechanika Płynów" maxlength="60">
+        </div>
+
+        <div class="kol-form-row-2">
+            <div>
+                <label class="kol-form-label">Data</label>
+                <input class="kol-form-input" id="kolDate" type="date">
+            </div>
+            <div>
+                <label class="kol-form-label">Godzina</label>
+                <input class="kol-form-input" id="kolTime" type="time">
+            </div>
+        </div>
+
+        <div class="kol-form-row">
+            <label class="kol-form-label">Sala (opcjonalnie)</label>
+            <input class="kol-form-input" id="kolRoom" type="text" placeholder="np. B216" maxlength="20">
+        </div>
+
+        <div class="kol-form-row">
+            <label class="kol-form-label">Notatki (opcjonalnie)</label>
+            <textarea class="kol-form-textarea" id="kolNotes" placeholder="Zakres materiału, linki, uwagi…"></textarea>
+        </div>
+
+        <button class="kol-submit-btn" id="kolSubmitBtn" onclick="submitKol()">Dodaj do kalendarza</button>
+    </div>
+</div>
+
+<!-- ── DETAIL MODAL ── -->
+<div class="kol-detail-overlay" id="kolDetailOverlay" onclick="if(event.target===this)closeDetailModal()">
+    <div class="kol-detail-modal">
+        <div class="kol-modal-handle"></div>
+        <div id="kolDetailContent"></div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+            <button onclick="closeDetailModal()" style="flex:1;padding:11px;border-radius:12px;background:var(--card-bg);border:none;color:var(--text);font-family:inherit;font-size:.88em;font-weight:600;cursor:pointer;">Zamknij</button>
+            <button id="kolDetailDelete" style="flex:0 0 auto;padding:11px 16px;border-radius:12px;background:rgba(247,37,133,.15);border:1px solid rgba(247,37,133,.3);color:#f72585;font-family:inherit;font-size:.88em;font-weight:600;cursor:pointer;">Usuń</button>
+        </div>
     </div>
 </div>
 
@@ -695,6 +946,300 @@ document.querySelectorAll('.tab').forEach((t,i)=>{ if(i+1===todayAppDay) t.class
 setWeek(currentWeek);
 changeDay(currentDay);
 setInterval(render,60000);
+</script>
+
+<!-- ── FIREBASE SDK ── -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, query, orderBy }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ⚠️ UZUPEŁNIJ SWOJĄ KONFIGURACJĘ FIREBASE (Project Settings → Your apps → firebaseConfig)
+const firebaseConfig = {
+    apiKey:            "TWOJ_API_KEY",
+    authDomain:        "TWOJ_PROJECT.firebaseapp.com",
+    projectId:         "TWOJ_PROJECT_ID",
+    storageBucket:     "TWOJ_PROJECT.appspot.com",
+    messagingSenderId: "TWOJ_SENDER_ID",
+    appId:             "TWOJ_APP_ID"
+};
+
+let db, kolCollection;
+let allKols = [];
+
+try {
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    kolCollection = collection(db, 'kolokwia');
+
+    const q = query(kolCollection, orderBy('dateMs'));
+    onSnapshot(q, (snapshot) => {
+        allKols = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        document.getElementById('fbStatus').textContent = '✅ Połączono z bazą danych';
+        document.getElementById('fbStatus').classList.remove('error');
+        renderKolList();
+        renderWeekCal();
+        updateBadge();
+    });
+} catch(e) {
+    document.getElementById('fbStatus').textContent = '❌ Błąd połączenia – sprawdź konfigurację Firebase';
+    document.getElementById('fbStatus').classList.add('error');
+    console.error('Firebase init error:', e);
+}
+
+// ── WEEK CALENDAR ──
+const WC_DAYS_PL = ['Pn','Wt','Śr','Cz','Pt','So','Nd'];
+let wcOffset = 0; // weeks offset from current
+
+function getWeekStart(offset) {
+    const now = new Date();
+    const dow = (now.getDay() + 6) % 7; // 0=Mon
+    const ms = now.getTime() - dow * 86400000 + offset * 7 * 86400000;
+    return new Date(ms);
+}
+
+function renderWeekCal() {
+    const start = getWeekStart(wcOffset);
+    const end = new Date(start.getTime() + 6 * 86400000);
+    const fmt = d => `${d.getDate()} ${['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'][d.getMonth()]}`;
+    document.getElementById('wcTitle').textContent = `${fmt(start)} – ${fmt(end)}`;
+
+    const container = document.getElementById('wcDays');
+    container.innerHTML = '';
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    for (let i = 0; i < 7; i++) {
+        const day = new Date(start.getTime() + i * 86400000);
+        day.setHours(0,0,0,0);
+        const cell = document.createElement('div');
+        cell.className = 'wc-day' + (i >= 5 ? ' weekend' : '');
+        if (day.getTime() === today.getTime()) cell.classList.add('today');
+
+        const dayKols = allKols.filter(k => {
+            const kd = new Date(k.dateMs); kd.setHours(0,0,0,0);
+            return kd.getTime() === day.getTime();
+        });
+
+        cell.innerHTML = `<div class="wc-day-label">${WC_DAYS_PL[i]}</div>
+            <div class="wc-day-num">${day.getDate()}</div>
+            <div class="wc-dots">${dayKols.map(k => `<div class="wc-dot" style="background:${kolColor(k.type)}"></div>`).join('')}</div>`;
+
+        if (dayKols.length > 0) {
+            cell.title = dayKols.map(k => k.subject).join(', ');
+            cell.style.cursor = 'pointer';
+            cell.onclick = () => {
+                // Show first event of the day
+                openDetailModal(dayKols[0]);
+            };
+        }
+        container.appendChild(cell);
+    }
+}
+
+function wcPrev() { wcOffset--; renderWeekCal(); }
+function wcNext() { wcOffset++; renderWeekCal(); }
+window.wcPrev = wcPrev;
+window.wcNext = wcNext;
+
+// ── LIST ──
+function kolColor(type) {
+    return type === 'kol' ? '#a8e063' : type === 'wej' ? '#ff9f43' : '#f72585';
+}
+function kolLabel(type) {
+    return type === 'kol' ? 'Kolokwium' : type === 'wej' ? 'Wejściówka' : 'Egzamin';
+}
+
+function renderKolList() {
+    const container = document.getElementById('kolList');
+    const now = Date.now();
+    const upcoming = allKols.filter(k => k.dateMs >= now);
+    const past     = allKols.filter(k => k.dateMs < now);
+
+    let html = '';
+    if (!allKols.length) {
+        html = '<div class="kol-empty">🎉 Brak wpisów<br><span style="font-size:.82em">Dodaj pierwsze kolokwium!</span></div>';
+    } else {
+        if (upcoming.length) {
+            html += `<div class="kol-section-title">Nadchodzące (${upcoming.length})</div>`;
+            html += upcoming.map(k => kolCardHTML(k, false)).join('');
+        }
+        if (past.length) {
+            html += `<div class="kol-section-title" style="margin-top:12px">Minione</div>`;
+            html += past.reverse().map(k => kolCardHTML(k, true)).join('');
+        }
+    }
+    container.innerHTML = html;
+}
+
+function kolCardHTML(k, isPast) {
+    const d = new Date(k.dateMs);
+    const dateStr = `${d.getDate()} ${['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'][d.getMonth()]} ${d.getFullYear()}`;
+    const timeStr = k.time ? k.time : '';
+    const color = kolColor(k.type);
+    const label = kolLabel(k.type);
+    return `<div class="kol-card type-${k.type}${isPast?' is-past':''}" onclick="openDetailModal(${JSON.stringify(k).replace(/"/g,'&quot;')})">
+        <button class="kol-card-delete" onclick="event.stopPropagation();deleteKol('${k.id}')" title="Usuń">✕</button>
+        <div class="kol-card-top">
+            <div>
+                <span class="kol-type-badge kol-type-${k.type}">${label}</span>
+                <div class="kol-card-subject" style="margin-top:5px">${k.subject}</div>
+            </div>
+            <div style="text-align:right">
+                <div class="kol-card-date" style="color:${color}">${dateStr}</div>
+                ${timeStr ? `<div class="kol-card-time">🕐 ${timeStr}</div>` : ''}
+                ${k.room ? `<div class="kol-card-time">📍 ${k.room}</div>` : ''}
+            </div>
+        </div>
+    </div>`;
+}
+
+function updateBadge() {
+    const badge = document.getElementById('kolBadge');
+    const upcoming = allKols.filter(k => k.dateMs >= Date.now()).length;
+    if (upcoming > 0) {
+        badge.style.display = 'flex';
+        badge.textContent = upcoming;
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+// ── FORM ──
+let selectedType = 'kol';
+
+function selectKolType(type) {
+    selectedType = type;
+    ['kol','wej','egz'].forEach(t => {
+        document.getElementById('type'+t.charAt(0).toUpperCase()+t.slice(1)).className =
+            'kol-type-opt' + (t === type ? ` sel-${t}` : '');
+    });
+}
+window.selectKolType = selectKolType;
+
+function openKolModal() {
+    // Set today as default date
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth()+1).padStart(2,'0');
+    const dd = String(today.getDate()).padStart(2,'0');
+    document.getElementById('kolDate').value = `${yyyy}-${mm}-${dd}`;
+    document.getElementById('kolTime').value = '';
+    document.getElementById('kolSubject').value = '';
+    document.getElementById('kolRoom').value = '';
+    document.getElementById('kolNotes').value = '';
+    selectedType = 'kol';
+    selectKolType('kol');
+    document.getElementById('kolModalOverlay').classList.add('open');
+}
+window.openKolModal = openKolModal;
+
+function closeKolModal() {
+    document.getElementById('kolModalOverlay').classList.remove('open');
+}
+window.closeKolModal = closeKolModal;
+
+async function submitKol() {
+    const subject = document.getElementById('kolSubject').value.trim();
+    const date    = document.getElementById('kolDate').value;
+    const time    = document.getElementById('kolTime').value;
+    const room    = document.getElementById('kolRoom').value.trim();
+    const notes   = document.getElementById('kolNotes').value.trim();
+
+    if (!subject || !date) {
+        alert('Podaj przedmiot i datę!');
+        return;
+    }
+
+    const btn = document.getElementById('kolSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Zapisywanie…';
+
+    try {
+        // dateMs is date+time combined for sorting
+        const [y,m,d] = date.split('-').map(Number);
+        let dateMs;
+        if (time) {
+            const [hh,min] = time.split(':').map(Number);
+            dateMs = new Date(y, m-1, d, hh, min).getTime();
+        } else {
+            dateMs = new Date(y, m-1, d, 23, 59).getTime();
+        }
+
+        await addDoc(kolCollection, {
+            type: selectedType,
+            subject,
+            date,
+            time,
+            room,
+            notes,
+            dateMs,
+            addedAt: Date.now()
+        });
+
+        closeKolModal();
+    } catch(e) {
+        alert('Błąd zapisu: ' + e.message);
+    } finally {
+        btn.disabled = false; btn.textContent = 'Dodaj do kalendarza';
+    }
+}
+window.submitKol = submitKol;
+
+async function deleteKol(id) {
+    if (!confirm('Usunąć ten wpis?')) return;
+    try {
+        await deleteDoc(doc(db, 'kolokwia', id));
+    } catch(e) {
+        alert('Błąd usuwania: ' + e.message);
+    }
+}
+window.deleteKol = deleteKol;
+
+// ── DETAIL MODAL ──
+let detailKol = null;
+
+function openDetailModal(k) {
+    // k may come from JSON.parse via onclick attr
+    if (typeof k === 'string') k = JSON.parse(k);
+    detailKol = k;
+    const d = new Date(k.dateMs);
+    const months = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
+    const dateStr = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    const color = kolColor(k.type);
+    const label = kolLabel(k.type);
+
+    document.getElementById('kolDetailContent').innerHTML = `
+        <span class="kol-type-badge kol-type-${k.type}">${label}</span>
+        <div class="kol-detail-subject">${k.subject}</div>
+        <div class="kol-detail-row">📅 <strong>${dateStr}</strong></div>
+        ${k.time ? `<div class="kol-detail-row">🕐 Godzina: <strong>${k.time}</strong></div>` : ''}
+        ${k.room ? `<div class="kol-detail-row">📍 Sala: <strong>${k.room}</strong></div>` : ''}
+        ${k.notes ? `<div class="kol-detail-row" style="flex-direction:column;align-items:flex-start;gap:4px">
+            📋 <strong>Notatki:</strong>
+            <div class="kol-detail-notes">${k.notes.replace(/\n/g,'<br>')}</div>
+        </div>` : ''}
+    `;
+
+    document.getElementById('kolDetailDelete').onclick = () => {
+        closeDetailModal();
+        deleteKol(k.id);
+    };
+
+    document.getElementById('kolDetailOverlay').classList.add('open');
+}
+window.openDetailModal = openDetailModal;
+
+function closeDetailModal() {
+    document.getElementById('kolDetailOverlay').classList.remove('open');
+}
+window.closeDetailModal = closeDetailModal;
+
+// Hook into openPanel to refresh week cal
+const _origOpenPanel = window.openPanel;
+window.openPanel = function(id) {
+    _origOpenPanel(id);
+    if (id === 'kolOverlay') { renderWeekCal(); }
+};
+
 </script>
 </body>
 </html>
